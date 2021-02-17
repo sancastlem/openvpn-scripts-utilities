@@ -1,2 +1,4 @@
-# openvpn-scripts-utilities
-Bash scripts utilities to manage OpenVPN Server
+# OpenVPN Utilities
+Bash scripts utilities and examples configs files to manage OpenVPN Server.
+
+

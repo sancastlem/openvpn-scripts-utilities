@@ -1,0 +1,61 @@
+#!/bin/bash
+PATH=/sbin:/usr/sbin:/bin:/usr/bin
+
+## VARS
+VPN_PATH="/path/to/config/files/folder" ## Path to VPN's files setup
+OVPN="<yourovpnfile>.ovpn"  ## Name of the .ovpn file
+PASS="<yourvpnpass>.pass" ## Name of the .pass file
+NAME="Your VPN Name" ## Name for your VPN connection
+
+## Get PID from the VPN connection
+VPN_PID=`ps aux | grep $OVPN | grep -v 'grep\|sudo -b' | awk '{print $2}'`
+
+## MAIN
+case $1 in
+
+	"start")
+		if [[ $VPN_PID == "" ]];then
+
+			sudo -b openvpn --config $VPN_PATH/$OVPN --askpass $VPN_PATH/$PASS
+
+		else
+
+			echo "VPN to $NAME is established."
+			exit 0
+
+		fi
+		;;
+
+	"stop")
+		if [[ $VPN_PID != "" ]];then
+
+			sudo kill -9 $VPN_PID
+			echo "Closing VPN connection..."
+
+		else
+
+			echo "VPN to $NAME not established."
+			exit 0
+
+		fi
+		;;
+
+	"status")
+		if [[ $VPN_PID != "" ]];then
+
+			echo "VPN connection to $NAME is stablished."
+			exit 0
+
+		else
+
+			echo "VPN to $NAME not established."
+			exit 0
+
+		fi
+		;;
+
+	*)
+		echo "Missing argument. Usage: start|stop|status"
+		;;
+	
+esac

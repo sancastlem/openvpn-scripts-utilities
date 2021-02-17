@@ -1,0 +1,9 @@
+# About me
+set from="Your Name <admin@example.com>"
+
+# No copy messages
+set copy=no
+
+# SMTP Credentials
+set smtp_url = "smtp://host@domain:port/"
+set smtp_pass = "YourPassword"
